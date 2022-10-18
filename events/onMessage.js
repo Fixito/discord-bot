@@ -1,5 +1,6 @@
 const PREFIX = '!';
 const FNG_ID = '178454294314352640';
+const { callMembersToPLay } = require('../utils/callMembersToPLay');
 
 const onMessage = async (message) => {
   if (message.author.bot || !message.content.startsWith(PREFIX)) return;
@@ -18,7 +19,19 @@ const onMessage = async (message) => {
   }
 
   if (input === 'test') {
-    console.log(message.guild.id);
+    const guild = message.guild;
+
+    if (!guild.available) return;
+
+    const memberList = await guild.members.fetch();
+
+    const members = await callMembersToPLay(memberList, 'Feedeur');
+
+    message.channel.send(
+      `Une flex pour gagner des LPs ? ${members
+        .map((member) => `<@${member.id}>`)
+        .join(' ')}`
+    );
     return;
   }
 
