@@ -12,7 +12,8 @@ const client = new Client({
     GatewayIntentBits.GuildMessages, // autorise à accéder aux messages
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMessageReactions,
-    GatewayIntentBits.GuildMembers
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildPresences
   ],
   partials: [Partials.Message, Partials.Reaction]
 });

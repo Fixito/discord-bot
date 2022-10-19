@@ -1,4 +1,4 @@
-const callMembersToPLay = async (members, roletoCall) => {
+const getMembersToMention = async (members, roletoCall) => {
   const newMembers = members.map((member) => {
     const {
       id,
@@ -16,4 +16,4 @@ const callMembersToPLay = async (members, roletoCall) => {
   return filteredMembers;
 };
 
-module.exports = { callMembersToPLay };
+module.exports = { getMembersToMention };
