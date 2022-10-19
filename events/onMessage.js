@@ -1,5 +1,4 @@
 const PREFIX = '!';
-const FNG_ID = '178454294314352640';
 const { getMembersToMention } = require('../utils/getMembersToMention');
 const { sendMessage } = require('../utils/sendMessage');
 
