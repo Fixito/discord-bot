@@ -1,20 +1,24 @@
+const { getMembersToMention, sendMessage, sendDoc } = require('../utils');
+
 const PREFIX = '!';
-const { getMembersToMention } = require('../utils/getMembersToMention');
-const { sendMessage } = require('../utils/sendMessage');
 
 const onMessage = async (message) => {
   const guild = message.guild;
 
-  if (!guild.available) return;
-  if (message.author.bot || !message.content.startsWith(PREFIX)) return;
+  if (
+    !guild.available ||
+    message.author.bot ||
+    !message.content.startsWith(PREFIX)
+  )
+    return;
 
-  const input = message.content.trim().split(PREFIX).slice(1).join('');
+  const commandBody = message.content.trim().slice(PREFIX.length);
+  const args = commandBody.trim().split(' ');
+  const command = args.shift().toLowerCase();
   let sentence = '';
-  // console.log(input);
 
-  if (input === 'aide') {
-    sentence = 'Voici la documentation du bot.';
-    sendMessage(message, sentence);
+  if (command === 'aide') {
+    sendDoc(message);
     return;
   }
 
@@ -26,7 +30,7 @@ const onMessage = async (message) => {
       )
     );
 
-  if (input === 'test' || input === 'aram' || input === 'duoQ') {
+  if (command === 'test' || command === 'aram' || command === 'duoQ') {
     const members = await getMembersToMention(membersOnline, 'Feedeur');
 
     if (!members.length) {
@@ -34,25 +38,21 @@ const onMessage = async (message) => {
       return;
     }
 
-    if (input === 'test') {
+    if (command === 'test') {
       sentence = `Une flex pour ${
         Math.random() >= 0.5 ? 'gagner' : 'perdre'
       } des LPs ?`;
-    } else if (input === 'duoQ') {
+    } else if (command === 'duoQ') {
       sentence = 'Un copain pour duoQ ? :pray:';
     } else {
       sentence = 'Une ARAM pour se détendre ? :coffee:';
-    }
-
-    if (input === 'Imposteur') {
-      sentence = 'Among Us ? :knife:';
     }
 
     sendMessage(message, sentence, members);
     return;
   }
 
-  if (input === 'among') {
+  if (command === 'among') {
     const members = await getMembersToMention(membersOnline, 'Imposteur');
 
     if (!members.length) {
@@ -65,7 +65,7 @@ const onMessage = async (message) => {
     return;
   }
 
-  if (input === 'cs') {
+  if (command === 'cs') {
     const members = await getMembersToMention(membersOnline, 'CS:GO');
 
     if (!members.length) {
@@ -73,12 +73,12 @@ const onMessage = async (message) => {
       return;
     }
 
-    sentence = "Un pt'it CS à l'ancienne ? :knife:";
+    sentence = "Un p'tit CS à l'ancienne ? :knife:";
     sendMessage(message, sentence, members);
     return;
   }
 
-  if (input === 'valo') {
+  if (command === 'valo') {
     const members = await getMembersToMention(membersOnline, 'Valorant');
 
     if (!members.length) {

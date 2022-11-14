@@ -1,3 +1,5 @@
-const { getMembersToMention, sendMessage } = require('./getMembersToMention');
+const { getMembersToMention } = require('./getMembersToMention');
+const { sendMessage } = require('./sendMessage');
+const { sendDoc } = require('./sendDoc');
 
-module.exports = { getMembersToMention, sendMessage };
+module.exports = { getMembersToMention, sendMessage, sendDoc };
