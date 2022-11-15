@@ -1,13 +1,12 @@
 const { Events } = require('discord.js');
 
-// Répond à une réaction spécifique aux messages
 module.exports = {
-  name: Events.MessageReactionAdd,
+  name: Events.MessageReactionRemove,
   async execute(reaction, user) {
-    if (user.bot) return;
-    if (!reaction.message.guild) return;
     if (reaction.message.partial) await reaction.message.fetch();
     if (reaction.partial) await reaction.fetch();
+    if (user.bot) return;
+    if (!reaction.message.guild) return;
 
     const feedeurRole = reaction.message.guild.roles.cache.find(
       (role) => role.name.toLowerCase() === 'feedeur'
@@ -27,37 +26,28 @@ module.exports = {
     const csgoEmoji = '🔪';
     const valorantEmoji = '🔫';
 
-    if (reaction.emoji.name === '🟨') {
-      const channel = reaction.message.guild.channels.cache.get(
-        '1017067799014817825'
-      );
-      channel.send(
-        `Un message a été signalé par <@${user.id}>. Voici son lien : ${reaction.message.url}`
-      );
-    }
-
     if (reaction.emoji.name === feedeurEmoji) {
       await reaction.message.guild.members.cache
         .get(user.id)
-        .roles.add(feedeurRole);
+        .roles.remove(feedeurRole);
     }
 
     if (reaction.emoji.name === imposteurEmoji) {
       await reaction.message.guild.members.cache
         .get(user.id)
-        .roles.add(imposteurRole);
+        .roles.remove(imposteurRole);
     }
 
     if (reaction.emoji.name === csgoEmoji) {
       await reaction.message.guild.members.cache
         .get(user.id)
-        .roles.add(csgoRole);
+        .roles.remove(csgoRole);
     }
 
     if (reaction.emoji.name === valorantEmoji) {
       await reaction.message.guild.members.cache
         .get(user.id)
-        .roles.add(valorantRole);
+        .roles.remove(valorantRole);
     }
   }
 };

@@ -15,7 +15,7 @@ const client = new Client({
   intents: [
     ,
     GatewayIntentBits.Guilds, // Accès aux guildes
-    GatewayIntentBits.GuildMessages, // Autorise à accéder aux messages
+    GatewayIntentBits.GuildMessages, // Accès aux messages
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildMembers,
