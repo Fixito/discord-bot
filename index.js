@@ -45,7 +45,7 @@ for (const file of commandFiles) {
   }
 }
 
-// répond aux intéractions (commandes)
+// répond aux intéractions (commandes slash)
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
