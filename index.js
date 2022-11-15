@@ -6,27 +6,27 @@ const {
   GatewayIntentBits,
   Partials
 } = require('discord.js');
-const { onMessage, onReady } = require('./events');
 
 const TOKEN =
   'MTAxNzA2Njc4NjExMTM3MzM4Mw.GaK64n.K4Olt_YZ5RX2fmafdUPdG5znNB5kKFH1DRqG9c';
 
-// créé une instance du client
+// Créé une instance du client
 const client = new Client({
   intents: [
     ,
-    GatewayIntentBits.Guilds, // accès aux guildes
-    GatewayIntentBits.GuildMessages, // autorise à accéder aux messages
+    GatewayIntentBits.Guilds, // Accès aux guildes
+    GatewayIntentBits.GuildMessages, // Autorise à accéder aux messages
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildPresences
   ],
-  partials: [Partials.Message, Partials.Reaction]
+  partials: [Partials.Message, Partials.Reaction] // Lit les anciens messages et réactions
 });
 
 client.commands = new Collection();
 
+// Lit les fichiers de commandes
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs
   .readdirSync(commandsPath)
@@ -35,6 +35,7 @@ const commandFiles = fs
 for (const file of commandFiles) {
   const filePath = path.join(commandsPath, file);
   const command = require(filePath);
+
   // Défini un nouvel item dans la Collection avec la clef comme nom de commande et la valeur comme module exporté
   if ('data' in command && 'execute' in command) {
     client.commands.set(command.data.name, command);
@@ -45,48 +46,22 @@ for (const file of commandFiles) {
   }
 }
 
-// répond aux intéractions (commandes slash)
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
+// Lit les fichiers d'event
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs
+  .readdirSync(eventsPath)
+  .filter((file) => file.endsWith('.js'));
 
-  const command = interaction.client.commands.get(interaction.commandName);
+for (const file of eventFiles) {
+  const filePath = path.join(eventsPath, file);
+  const event = require(filePath);
 
-  if (!command) {
-    console.error(
-      `Aucune commande correspondant à ${interaction.commandName} n'a été trouvé.`
-    );
-    return;
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args));
+  } else {
+    client.on(event.name, (...args) => event.execute(...args));
   }
+}
 
-  try {
-    await command.execute(interaction);
-  } catch (error) {
-    console.error(error);
-    await interaction.reply({
-      content: 'Il a y eu une erreur en exécutant cette commande.',
-      ephemeral: true
-    });
-  }
-});
-
-// agit quand le bot est prêt
-client.on('ready', () => onReady(client));
-
-// répond aux messages
-client.on('messageCreate', onMessage);
-
-// répond aux réactions
-client.on('messageReactionAdd', async (reaction, user) => {
-  if (reaction.emoji.name === '🟨') {
-    console.log('signalé');
-    const channel = reaction.message.guild.channels.cache.get(
-      '1017067799014817825'
-    );
-    channel.send(
-      `Un message a été signalé par <@${user.id}>. Voici son lien : ${reaction.message.url}`
-    );
-  }
-});
-
-// connecte le bot
+// Connecte le bot
 client.login(TOKEN);
