@@ -1,4 +1,5 @@
 const { Events } = require('discord.js');
+const addSpecificRoleToUser = require('../utils/addSpecificRoleToUser');
 
 const feedeurEmoji = '🔞';
 const imposteurEmoji = '🕵️';
@@ -31,39 +32,25 @@ module.exports = {
     if (channel.name !== 'revendiquer-un-rôle') return;
 
     if (reaction.emoji.name === feedeurEmoji) {
-      const feedeurRole = reaction.message.guild.roles.cache.find(
-        (role) => role.name.toLowerCase() === 'feedeur'
-      );
-      const member = reaction.message.guild.members.cache.find(
-        (member) => member.id === user.id
-      );
-      member.roles.add(feedeurRole);
-    } else if (reaction.emoji.name === imposteurEmoji) {
-      const imposteurRole = reaction.message.guild.roles.cache.find(
-        (role) => role.name.toLowerCase() === 'imposteur'
-      );
-      const member = reaction.message.guild.members.cache.find(
-        (member) => member.id === user.id
-      );
-      member.roles.add(imposteurRole);
-    } else if (reaction.emoji.name === csgoEmoji) {
-      const csgoRole = reaction.message.guild.roles.cache.find(
-        (role) => role.name.toLowerCase() === 'cs:go'
-      );
-      const member = reaction.message.guild.members.cache.find(
-        (member) => member.id === user.id
-      );
-      member.roles.add(csgoRole);
-    } else if (reaction.emoji.name === valorantEmoji) {
-      const valorantRole = reaction.message.guild.roles.cache.find(
-        (role) => role.name.toLowerCase() === 'valorant'
-      );
-      const member = reaction.message.guild.members.cache.find(
-        (member) => member.id === user.id
-      );
-      member.roles.add(valorantRole);
-    } else {
+      addSpecificRoleToUser(reaction, user, 'feedeur');
       return;
     }
+
+    if (reaction.emoji.name === imposteurEmoji) {
+      addSpecificRoleToUser(reaction, user, 'imposteur');
+      return;
+    }
+
+    if (reaction.emoji.name === csgoEmoji) {
+      addSpecificRoleToUser(reaction, user, 'cs:go');
+      return;
+    }
+
+    if (reaction.emoji.name === valorantEmoji) {
+      addSpecificRoleToUser(reaction, user, 'valorant');
+      return;
+    }
+
+    return;
   }
 };
