@@ -1,9 +1,6 @@
 const { REST, Routes } = require('discord.js');
 const fs = require('node:fs');
-
-const TOKEN =
-  'MTAxNzA2Njc4NjExMTM3MzM4Mw.GaK64n.K4Olt_YZ5RX2fmafdUPdG5znNB5kKFH1DRqG9c';
-const clientId = '1017066786111373383';
+require('dotenv').config();
 
 const commands = [];
 
@@ -19,7 +16,7 @@ for (const file of commandFiles) {
 }
 
 // Construit et prépare un instance du module REST
-const rest = new REST({ version: '10' }).setToken(TOKEN);
+const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 // déploie les commandes
 (async () => {
@@ -29,7 +26,7 @@ const rest = new REST({ version: '10' }).setToken(TOKEN);
     );
 
     // la méthode put est utilisé pour rafraîchir toutes les commandes dans la guilde avec le set courant
-    await rest.put(Routes.applicationCommands(clientId), {
+    await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
       body: commands
     });
 

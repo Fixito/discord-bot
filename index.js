@@ -6,9 +6,7 @@ const {
   GatewayIntentBits,
   Partials
 } = require('discord.js');
-
-const TOKEN =
-  'MTAxNzA2Njc4NjExMTM3MzM4Mw.GaK64n.K4Olt_YZ5RX2fmafdUPdG5znNB5kKFH1DRqG9c';
+require('dotenv').config();
 
 // Créé une instance du client
 const client = new Client({
@@ -64,4 +62,4 @@ for (const file of eventFiles) {
 }
 
 // Connecte le bot
-client.login(TOKEN);
+client.login(process.env.TOKEN);
