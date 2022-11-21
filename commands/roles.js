@@ -39,6 +39,11 @@ module.exports = {
         });
       }
 
+      await interaction.reply({
+        content: 'La commande a bien été exécutée.',
+        ephemeral: true
+      });
+
       const embeddedMessage = new EmbedBuilder()
         .setColor(0x0099ff)
         .setTitle('Rôles')
@@ -73,11 +78,6 @@ module.exports = {
       await interactionMessage.react(imposteurEmoji);
       await interactionMessage.react(csgoEmoji);
       await interactionMessage.react(valorantEmoji);
-
-      await interaction.reply({
-        content: 'La commande a bien été exécutée.',
-        ephemeral: true
-      });
     } catch (error) {
       console.log(error);
     }
