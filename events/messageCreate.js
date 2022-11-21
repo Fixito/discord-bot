@@ -45,7 +45,7 @@ module.exports = {
         sentence = `Une flex pour ${
           Math.random() >= 0.5 ? 'gagner' : 'perdre'
         } des LPs ?`;
-      } else if (command === 'duoQ') {
+      } else if (command === 'duoq') {
         sentence = 'Un copain pour duoQ ? :pray:';
       } else {
         sentence = 'Une ARAM pour se détendre ? :coffee:';
@@ -89,11 +89,13 @@ module.exports = {
         return;
       }
 
-      sentence = 'Un Valolo ? :knife:';
+      sentence = 'Un Valolo ? 🔫';
       sendMessage(message, sentence, members);
       return;
     }
 
-    message.reply("Cette commande n'existe pas.");
+    message.reply(
+      "Cette commande n'existe pas. Tapez `!aide` pour consulter la liste des commandes disponibles."
+    );
   }
 };
