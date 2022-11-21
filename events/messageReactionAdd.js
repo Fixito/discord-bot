@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const addSpecificRoleToUser = require('../utils/addSpecificRoleToUser');
+const { addSpecificRoleToUser } = require('../utils');
 
 const feedeurEmoji = '🔞';
 const imposteurEmoji = '🕵️';

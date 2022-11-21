@@ -5,7 +5,6 @@ const {
 } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
 
-// emojis
 const feedeurEmoji = '🔞';
 const imposteurEmoji = '🕵️';
 const csgoEmoji = '🔪';

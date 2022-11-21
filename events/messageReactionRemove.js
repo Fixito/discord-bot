@@ -1,7 +1,6 @@
 const { Events } = require('discord.js');
-const removeSpecificRoleToUser = require('../utils/removeSpecificRoleToUser');
+const { removeSpecificRoleToUser } = require('../utils');
 
-// emojis
 const feedeurEmoji = '🔞';
 const imposteurEmoji = '🕵️';
 const csgoEmoji = '🔪';
@@ -31,7 +30,6 @@ module.exports = {
     if (channel.name !== 'revendiquer-un-rôle') return;
 
     if (reaction.emoji.name === feedeurEmoji) {
-      console.log(removeSpecificRoleToUser);
       removeSpecificRoleToUser(reaction, user, 'feedeur');
       return;
     }
