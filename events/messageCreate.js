@@ -33,7 +33,7 @@ module.exports = {
         )
       );
 
-    if (command === 'test' || command === 'aram' || command === 'duoQ') {
+    if (command === 'flex' || command === 'aram' || command === 'duoq') {
       const members = await getMembersToMention(membersOnline, 'Feedeur');
 
       if (!members.length) {
@@ -41,7 +41,7 @@ module.exports = {
         return;
       }
 
-      if (command === 'test') {
+      if (command === 'flex') {
         sentence = `Une flex pour ${
           Math.random() >= 0.5 ? 'gagner' : 'perdre'
         } des LPs ?`;
