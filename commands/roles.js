@@ -19,7 +19,7 @@ module.exports = {
     ),
   async execute(interaction) {
     try {
-      let channel = interaction.guild.channels.cache.find(
+      let channel = await interaction.guild.channels.cache.find(
         (channel) => channel.name === 'revendiquer-un-rôle'
       );
 
@@ -30,7 +30,10 @@ module.exports = {
           permissionOverwrites: [
             {
               id: interaction.guild.id,
-              allow: [PermissionsBitField.Flags.ViewChannel],
+              allow: [
+                PermissionsBitField.Flags.ViewChannel,
+                PermissionsBitField.Flags.AddReactions
+              ],
               deny: [PermissionsBitField.Flags.SendMessages]
             }
           ]
@@ -79,60 +82,5 @@ module.exports = {
     } catch (error) {
       console.log(error);
     }
-
-    // const feedeurRole = interaction.guild.roles.cache.find(
-    //   (role) => role.name.toLowerCase() === 'feedeur'
-    // );
-    // const imposteurRole = interaction.guild.roles.cache.find(
-    //   (role) => role.name.toLowerCase() === 'imposteur'
-    // );
-    // const csgoRole = interaction.guild.roles.cache.find(
-    //   (role) => role.name.toLowerCase() === 'cs:go'
-    // );
-    // const valorantRole = interaction.guild.roles.cache.find(
-    //   (role) => role.name.toLowerCase() === 'valorant'
-    // );
-
-    // const filter = (reaction, user) =>
-    //   [feedeurEmoji, imposteurEmoji, csgoEmoji, valorantEmoji].includes(
-    //     reaction.emoji.name
-    //   ) && user.id === interaction.user.id;
-    // interactionMessage
-    //   .awaitReactions({ filter, time: 3_000, errors: ['time'] })
-    //   .then((collected) => {
-    //     const reactions = collected.map((reaction) => reaction);
-    //     const newReactions = reactions.map((reaction) => {
-    //       const {
-    //         emoji: { name }
-    //       } = reaction;
-    //       const reactionUsersId = reaction.users.cache
-    //         .filter((user) => !user.bot)
-    //         .map((user) => user.id);
-    //       return { emoji: name, usersId: reactionUsersId };
-    //     });
-    //     for (const reaction of newReactions) {
-    //       if (reaction.emoji === feedeurEmoji) {
-    //         reaction.usersId.forEach((id) => {
-    //           interaction.guild.members.cache.get(id).roles.add(feedeurRole);
-    //         });
-    //       }
-    //       if (reaction.emoji === imposteurEmoji) {
-    //         reaction.usersId.forEach((id) =>
-    //           interaction.guild.members.cache.get(id).roles.add(imposteurRole)
-    //         );
-    //       }
-    //       if (reaction.emoji === csgoEmoji) {
-    //         reaction.usersId.forEach((id) =>
-    //           interaction.guild.members.cache.get(id).roles.add(csgoRole)
-    //         );
-    //       }
-    //       if (reaction.emoji === valorantEmoji) {
-    //         reaction.usersId.forEach((id) =>
-    //           interaction.guild.members.cache.get(id).roles.add(valorantRole)
-    //         );
-    //       }
-    //     }
-    //   })
-    //   .catch(() => console.log('error'));
   }
 };
