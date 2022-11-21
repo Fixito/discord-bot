@@ -29,7 +29,7 @@ const rest = new REST({ version: '10' }).setToken(TOKEN);
     );
 
     // la méthode put est utilisé pour rafraîchir toutes les commandes dans la guilde avec le set courant
-    await rest.put(Routes.applicationGuildCommands(clientId), {
+    await rest.put(Routes.applicationCommands(clientId), {
       body: commands
     });
 
