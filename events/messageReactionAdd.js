@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { addSpecificRoleToUser } = require('../utils');
+const { toggleRole } = require('../utils');
 
 const feedeurEmoji = '🔞';
 const imposteurEmoji = '🕵️';
@@ -32,22 +32,22 @@ module.exports = {
     if (channel.name !== 'revendiquer-un-rôle') return;
 
     if (reaction.emoji.name === feedeurEmoji) {
-      addSpecificRoleToUser(reaction, user, 'feedeur');
+      toggleRole(reaction, user, 'feedeur', 'add');
       return;
     }
 
     if (reaction.emoji.name === imposteurEmoji) {
-      addSpecificRoleToUser(reaction, user, 'imposteur');
+      toggleRole(reaction, user, 'imposteur', 'add');
       return;
     }
 
     if (reaction.emoji.name === csgoEmoji) {
-      addSpecificRoleToUser(reaction, user, 'cs:go');
+      toggleRole(reaction, user, 'cs:go', 'add');
       return;
     }
 
     if (reaction.emoji.name === valorantEmoji) {
-      addSpecificRoleToUser(reaction, user, 'valorant');
+      toggleRole(reaction, user, 'valorant', 'add');
       return;
     }
 
