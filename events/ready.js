@@ -17,19 +17,23 @@ module.exports = {
       status: 'dnd'
     });
 
-    const guilds = client.guilds.cache;
+    try {
+      const guilds = client.guilds.cache;
 
-    guilds.forEach((guild) => {
-      const guildRoles = guild.roles.cache.map((role) => role.name);
+      guilds.forEach((guild) => {
+        const guildRoles = guild.roles.cache.map((role) => role.name);
 
-      rolesToCreate.forEach((roleToCreate) => {
-        if (!guildRoles.includes(roleToCreate)) {
-          guild.roles
-            .create({ name: roleToCreate })
-            .then(console.log(`Le rôle ${roleToCreate} a été créé.`))
-            .catch(console.error);
-        }
+        rolesToCreate.forEach((roleToCreate) => {
+          if (!guildRoles.includes(roleToCreate)) {
+            guild.roles
+              .create({ name: roleToCreate })
+              .then(console.log(`Le rôle ${roleToCreate} a été créé.`))
+              .catch(console.error);
+          }
+        });
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 };

@@ -25,32 +25,36 @@ module.exports = {
       }
     }
 
-    const channel = await reaction.message.guild.channels.cache.find(
-      (channel) => channel.id === reaction.message.channelId
-    );
+    try {
+      const channel = await reaction.message.guild.channels.cache.find(
+        (channel) => channel.id === reaction.message.channelId
+      );
 
-    if (channel.name !== 'revendiquer-un-rôle') return;
+      if (channel.name !== 'revendiquer-un-rôle') return;
 
-    if (reaction.emoji.name === feedeurEmoji) {
-      toggleRole(reaction, user, 'feedeur', 'add');
+      if (reaction.emoji.name === feedeurEmoji) {
+        toggleRole(reaction, user, 'feedeur', 'add');
+        return;
+      }
+
+      if (reaction.emoji.name === imposteurEmoji) {
+        toggleRole(reaction, user, 'imposteur', 'add');
+        return;
+      }
+
+      if (reaction.emoji.name === csgoEmoji) {
+        toggleRole(reaction, user, 'cs:go', 'add');
+        return;
+      }
+
+      if (reaction.emoji.name === valorantEmoji) {
+        toggleRole(reaction, user, 'valorant', 'add');
+        return;
+      }
+
       return;
+    } catch (error) {
+      console.log(error);
     }
-
-    if (reaction.emoji.name === imposteurEmoji) {
-      toggleRole(reaction, user, 'imposteur', 'add');
-      return;
-    }
-
-    if (reaction.emoji.name === csgoEmoji) {
-      toggleRole(reaction, user, 'cs:go', 'add');
-      return;
-    }
-
-    if (reaction.emoji.name === valorantEmoji) {
-      toggleRole(reaction, user, 'valorant', 'add');
-      return;
-    }
-
-    return;
   }
 };
