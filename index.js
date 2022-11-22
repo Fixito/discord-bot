@@ -1,4 +1,5 @@
 require("./deploy-commands");
+const keepAlive = require("./server");
 const fs = require('node:fs');
 const path = require('node:path');
 const {
@@ -62,5 +63,7 @@ for (const file of eventFiles) {
   }
 }
 
+// Démarre le serveur
+keepAlive()
 // Connecte le bot
 client.login(process.env.TOKEN);
