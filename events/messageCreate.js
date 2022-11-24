@@ -26,6 +26,13 @@ module.exports = {
         return;
       }
 
+      if (command === 'poll') {
+        const poll = require('../utils/poll');
+
+        poll.execute(message.client, message, args);
+        return;
+      }
+
       const membersOnline = await guild.members
         .fetch({ withPresences: true })
         .then((fetchedMembers) =>

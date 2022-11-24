@@ -4,38 +4,21 @@ const sendDoc = (message) => {
   const embeddedMessage = new EmbedBuilder()
     .setColor(0x0099ff)
     .setTitle('Aide')
-    .setDescription('Liste des commandes disponibles :')
-    .addFields(
-      {
-        name: '!flex',
-        value:
-          'Mentionne tous les membres en ligne ayant le rôle `Feedeur` pour faire une flex.'
-      },
-      {
-        name: '!aram',
-        value:
-          'Mentionne tous les membres en ligne ayant le rôle `Feedeur` pour faire une ARAM.'
-      },
-      {
-        name: '!duoq',
-        value:
-          'Mentionne tous les membres en ligne ayant le rôle `Feedeur` pour faire une DuoQ.'
-      },
-      {
-        name: '!among',
-        value:
-          'Mentionne tous les membres en ligne ayant le rôle `Imposteur` pour faire un Among Us.'
-      },
-      {
-        name: '!cs',
-        value:
-          'Mentionne tous les membres en ligne ayant le rôle `CS:GO` pour faire un CS:GO.'
-      },
-      {
-        name: '!valo',
-        value:
-          'Mentionne tous les membres en ligne ayant le rôle `Valorant` pour faire un Valorant.'
-      }
+    .setDescription(
+      [
+        '__**Liste des commandes disponibles :**__',
+        '**!poll** pour Créer un sondage\n__Usage:__ Titre + Option 1 + Option 2 + Option 3 + etc...',
+        '__Mentionner tous les membres en ligne ayant le rôle `Feedeur` :__',
+        '**!flex** pour faire une flex.',
+        '**!aram** pour faire une ARAM.',
+        '**!duoq** pour faire une duoQ.',
+        '__Mentionner tous les membres en ligne ayant le rôle `Imposteur` :__',
+        '**!among** pour faire un Among Us.',
+        '__Mentionner tous les membres en ligne ayant le rôle `CS:GO` :__',
+        '**!cs** pour faire un CS:GO.',
+        '__Mentionner tous les membres en ligne ayant le rôle `Valorant` :__',
+        '**!valo** pour faire un Valorant.'
+      ].join('\n\n')
     );
 
   message.channel
