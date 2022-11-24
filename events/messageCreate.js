@@ -30,7 +30,10 @@ module.exports = {
         .fetch({ withPresences: true })
         .then((fetchedMembers) =>
           fetchedMembers.filter(
-            (member) => !member.user.bot && member.presence?.status === 'online'
+            (member) =>
+              !member.user.bot &&
+              member.presence?.status === 'online' &&
+              !message.author
           )
         );
 
