@@ -33,7 +33,7 @@ module.exports = {
             (member) =>
               !member.user.bot &&
               member.presence?.status === 'online' &&
-              !message.author
+              message.author.id !== member.id
           )
         );
 
