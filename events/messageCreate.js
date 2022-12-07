@@ -39,7 +39,8 @@ module.exports = {
           fetchedMembers.filter(
             (member) =>
               !member.user.bot &&
-              member.presence?.status === 'online' &&
+              (member.presence?.status === 'online' ||
+                member.presence?.status === 'idle') &&
               message.author.id !== member.id
           )
         );
